@@ -29,6 +29,13 @@ Use the bundled Obsidian MCP server whenever the user asks about their Obsidian 
 - For new captures without a specified destination, create notes under `Inbox/Codex/`.
 - Use Markdown that is idiomatic for Obsidian: wiki links when helpful, standard fenced code blocks, and simple frontmatter.
 
+## Language
+
+- When archiving or summarizing source material whose original language is English, write the saved knowledge note in Chinese by default.
+- Preserve the original English title, author, source name, URL, publication date, and key proper nouns in frontmatter or source metadata.
+- Translate summaries, key ideas, action items, and personal knowledge-base notes into natural Chinese rather than storing English excerpts.
+- Keep short original English phrases only when they are named concepts, memorable slogans, or useful search anchors.
+
 ## Safety
 
 - Treat the vault as the user's source of truth.
