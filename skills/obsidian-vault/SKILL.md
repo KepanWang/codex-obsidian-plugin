@@ -28,6 +28,8 @@ Use the bundled Obsidian MCP server whenever the user asks about their Obsidian 
 - Do not delete notes or large sections unless the user explicitly asks.
 - For new captures without a specified destination, create notes under `Inbox/Codex/`.
 - Use Markdown that is idiomatic for Obsidian: wiki links when helpful, standard fenced code blocks, and simple frontmatter.
+- Make YAML frontmatter valid for Obsidian Properties. Quote string values by default, especially values containing `:`, `#`, `[`, `]`, `{`, `}`, URLs, or non-trivial punctuation.
+- If writing frontmatter manually, validate that it can be parsed as YAML before saving when a local parser is reasonably available.
 
 ## Language
 
