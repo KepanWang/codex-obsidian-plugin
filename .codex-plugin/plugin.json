@@ -1,0 +1,43 @@
+{
+  "name": "codex-obsidian-plugin",
+  "version": "0.1.0",
+  "description": "Connect Codex to a local Obsidian vault through the Obsidian Local REST API MCP endpoint.",
+  "author": {
+    "name": "Kepan Wang",
+    "url": "https://github.com/KepanWang"
+  },
+  "homepage": "https://github.com/KepanWang/codex-obsidian-plugin#readme",
+  "repository": "https://github.com/KepanWang/codex-obsidian-plugin",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "obsidian",
+    "mcp",
+    "local-rest-api",
+    "knowledge-base"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Obsidian Vault",
+    "shortDescription": "Read and write your local Obsidian knowledge base from Codex.",
+    "longDescription": "Connects Codex to a local Obsidian vault through the Obsidian Local REST API plugin and its MCP endpoint. Use it to search notes, read Markdown files, append captures, and make careful targeted edits.",
+    "developerName": "Kepan Wang",
+    "category": "Productivity",
+    "capabilities": [
+      "MCP",
+      "Read",
+      "Write",
+      "Search"
+    ],
+    "websiteURL": "https://github.com/KepanWang/codex-obsidian-plugin",
+    "privacyPolicyURL": "https://github.com/KepanWang/codex-obsidian-plugin#privacy",
+    "termsOfServiceURL": "https://github.com/KepanWang/codex-obsidian-plugin#license",
+    "defaultPrompt": [
+      "Search my Obsidian vault for notes about this topic.",
+      "Save this as a new note in my Obsidian inbox.",
+      "Update the relevant project note in Obsidian."
+    ],
+    "brandColor": "#7C3AED"
+  }
+}
