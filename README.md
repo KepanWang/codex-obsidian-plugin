@@ -1,8 +1,8 @@
 # Codex Obsidian Plugin
 
-Connect Codex to your local Obsidian vault through the [Obsidian Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api) plugin and its MCP endpoint.
+Connect Codex to your local Obsidian vault through the [Obsidian Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api) plugin.
 
-This plugin is intentionally small: Obsidian owns the vault and API, `mcp-remote` bridges Codex to the local MCP endpoint, and the included Codex skill teaches Codex safer note-taking behavior.
+This plugin is intentionally small: Obsidian owns the vault and REST API, the bundled MCP server exposes a focused tool layer to Codex, and the included Codex skill teaches Codex safer note-taking behavior.
 
 ## What It Does
 
@@ -17,7 +17,7 @@ This plugin is intentionally small: Obsidian owns the vault and API, `mcp-remote
 - Codex with local plugin support.
 - Obsidian running locally.
 - The Obsidian Local REST API community plugin installed and enabled.
-- Node.js with `npx` available.
+- Python 3 available as `python3`.
 - An Obsidian Local REST API key.
 
 Dataview is optional for this plugin, but it is useful when your vault already contains Dataview-powered project lists, indexes, and dashboards.
@@ -37,24 +37,22 @@ Set your Obsidian Local REST API key:
 export OBSIDIAN_LOCAL_REST_API_KEY="your-api-key"
 ```
 
-The default MCP endpoint is:
+The default Obsidian REST endpoint is:
 
 ```text
-https://127.0.0.1:27124/mcp/
+https://127.0.0.1:27124
 ```
 
 If you use another endpoint, override it:
 
 ```bash
-export OBSIDIAN_LOCAL_REST_API_URL="http://127.0.0.1:27123/mcp/"
+export OBSIDIAN_LOCAL_REST_API_URL="http://127.0.0.1:27123"
 ```
 
-For the HTTP endpoint, the wrapper automatically passes `--allow-http` to `mcp-remote`.
-
-If you use the HTTPS endpoint and your local certificate is self-signed, either trust the Local REST API certificate on your machine or set:
+The bundled MCP server defaults to allowing the Local REST API self-signed HTTPS certificate. If you want strict certificate verification, set:
 
 ```bash
-export OBSIDIAN_ALLOW_SELF_SIGNED_CERT=1
+export OBSIDIAN_VERIFY_TLS=1
 ```
 
 ## Plugin Files
@@ -62,7 +60,8 @@ export OBSIDIAN_ALLOW_SELF_SIGNED_CERT=1
 ```text
 .codex-plugin/plugin.json       Codex plugin manifest
 .mcp.json                       MCP server configuration
-scripts/obsidian-mcp.sh         Local wrapper around mcp-remote
+scripts/obsidian-mcp.sh         MCP server launcher
+scripts/obsidian_mcp_server.py  MCP stdio server backed by Local REST API
 skills/obsidian-vault/SKILL.md  Codex behavior guide for vault access
 ```
 
@@ -74,8 +73,23 @@ skills/obsidian-vault/SKILL.md  Codex behavior guide for vault access
 | --- | --- | --- | --- |
 | `OBSIDIAN_LOCAL_REST_API_KEY` | Yes | None | API key from Obsidian Local REST API settings. |
 | `OBSIDIAN_API_KEY` | No | None | Backward-compatible alias for the API key. |
-| `OBSIDIAN_LOCAL_REST_API_URL` | No | `https://127.0.0.1:27124/mcp/` | MCP endpoint exposed by Obsidian Local REST API. |
-| `OBSIDIAN_ALLOW_SELF_SIGNED_CERT` | No | None | Set to `1` to allow the default HTTPS self-signed certificate. |
+| `OBSIDIAN_LOCAL_REST_API_URL` | No | `https://127.0.0.1:27124` | Base URL for Obsidian Local REST API. |
+| `OBSIDIAN_VERIFY_TLS` | No | None | Set to `1` to verify HTTPS certificates strictly. |
+| `OBSIDIAN_MCP_DEBUG` | No | None | Set to `1` to print Python tracebacks to stderr. |
+
+## MCP Tools
+
+The plugin exposes these tools to Codex:
+
+- `obsidian_status`
+- `obsidian_list_files`
+- `obsidian_get_note`
+- `obsidian_put_note`
+- `obsidian_append_note`
+- `obsidian_patch_note`
+- `obsidian_search_simple`
+- `obsidian_dataview_query`
+- `obsidian_jsonlogic_query`
 
 ## Usage Examples
 
@@ -116,16 +130,16 @@ Your vault data is exposed to Codex only when Codex uses the local MCP tools con
 
 Set `OBSIDIAN_LOCAL_REST_API_KEY` in the environment where Codex launches plugin MCP servers.
 
-### `Missing npx`
+### `Missing python3`
 
-Install Node.js and make sure `npx` is on your `PATH`.
+Install Python 3 and make sure `python3` is on your `PATH`.
 
 ### HTTPS certificate errors
 
-Use the HTTP endpoint from Obsidian Local REST API, or set:
+By default the MCP server allows the local self-signed certificate commonly used by Obsidian Local REST API. If you set `OBSIDIAN_VERIFY_TLS=1`, make sure the certificate is trusted by your system, or use the HTTP endpoint:
 
 ```bash
-export OBSIDIAN_ALLOW_SELF_SIGNED_CERT=1
+export OBSIDIAN_LOCAL_REST_API_URL="http://127.0.0.1:27123"
 ```
 
 ### MCP tools do not appear

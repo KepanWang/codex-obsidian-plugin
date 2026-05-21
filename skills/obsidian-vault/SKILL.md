@@ -5,20 +5,20 @@ description: Use when the user asks to search, read, write, summarize, reorganiz
 
 # Obsidian Vault
 
-Use the Obsidian MCP server exposed by the Obsidian Local REST API plugin whenever the user asks about their Obsidian notes, vault, knowledge base, projects, daily notes, tags, backlinks, Dataview-backed lists, or wants Codex to save information into Obsidian.
+Use the bundled Obsidian MCP server whenever the user asks about their Obsidian notes, vault, knowledge base, projects, daily notes, tags, backlinks, Dataview-backed lists, or wants Codex to save information into Obsidian.
 
 ## Connection
 
 - The MCP server is named `obsidian`.
 - If the tools are unavailable, ask the user to confirm that Obsidian is running, Local REST API is enabled, and `OBSIDIAN_LOCAL_REST_API_KEY` is set.
-- Use `OBSIDIAN_LOCAL_REST_API_URL` only when the user uses a non-default Local REST API endpoint.
+- Use `OBSIDIAN_LOCAL_REST_API_URL` only when the user uses a non-default Local REST API base URL.
 
 ## Reading
 
 - Search before reading when the target note path is unknown.
 - Prefer focused reads over loading broad folders.
 - When answering from notes, mention which note paths were used.
-- For Dataview-style requests, use the available search or query tool exposed by the MCP server instead of guessing from filenames alone.
+- For Dataview-style requests, prefer `obsidian_dataview_query` instead of guessing from filenames alone.
 
 ## Writing
 

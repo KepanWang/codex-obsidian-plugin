@@ -2,7 +2,6 @@
 set -euo pipefail
 
 api_key="${OBSIDIAN_LOCAL_REST_API_KEY:-${OBSIDIAN_API_KEY:-}}"
-server_url="${OBSIDIAN_LOCAL_REST_API_URL:-https://127.0.0.1:27124/mcp/}"
 
 if [[ -z "$api_key" ]]; then
   cat >&2 <<'EOF'
@@ -17,23 +16,14 @@ EOF
   exit 1
 fi
 
-if ! command -v npx >/dev/null 2>&1; then
+if ! command -v python3 >/dev/null 2>&1; then
   cat >&2 <<'EOF'
-Missing npx.
+Missing python3.
 
-Install Node.js first, then try again.
+Install Python 3 first, then try again.
 EOF
   exit 1
 fi
 
-args=("mcp-remote@latest" "$server_url" "--header" "Authorization: Bearer $api_key")
-
-if [[ "$server_url" == http://* ]]; then
-  args+=("--allow-http")
-fi
-
-if [[ "${OBSIDIAN_ALLOW_SELF_SIGNED_CERT:-}" == "1" ]]; then
-  export NODE_TLS_REJECT_UNAUTHORIZED=0
-fi
-
-exec npx -y "${args[@]}"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec python3 "$script_dir/obsidian_mcp_server.py"

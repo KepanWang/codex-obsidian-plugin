@@ -1,7 +1,7 @@
 {
   "name": "codex-obsidian-plugin",
-  "version": "0.1.0",
-  "description": "Connect Codex to a local Obsidian vault through the Obsidian Local REST API MCP endpoint.",
+  "version": "0.2.0",
+  "description": "Connect Codex to a local Obsidian vault through the Obsidian Local REST API.",
   "author": {
     "name": "Kepan Wang",
     "url": "https://github.com/KepanWang"
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "Obsidian Vault",
     "shortDescription": "Read and write your local Obsidian knowledge base from Codex.",
-    "longDescription": "Connects Codex to a local Obsidian vault through the Obsidian Local REST API plugin and its MCP endpoint. Use it to search notes, read Markdown files, append captures, and make careful targeted edits.",
+    "longDescription": "Connects Codex to a local Obsidian vault through the Obsidian Local REST API plugin. Use it to search notes, read Markdown files, append captures, run Dataview queries, and make careful targeted edits.",
     "developerName": "Kepan Wang",
     "category": "Productivity",
     "capabilities": [
