@@ -20,6 +20,15 @@ Use the bundled Obsidian MCP server whenever the user asks about their Obsidian 
 - When answering from notes, mention which note paths were used.
 - For Dataview-style requests, prefer `obsidian_dataview_query` instead of guessing from filenames alone.
 
+## Classification
+
+- Before saving a new knowledge note, classify it using the user's classification guide.
+- First look for a user-specific guide at `<vault>/.codex/obsidian-classification.md` if the vault exposes it, then `~/.codex/obsidian-classification.md` if local filesystem access is available.
+- If no user-specific guide is available, use `classification.example.md` in this skill directory as the fallback.
+- Prefer the user's explicit category or path over inferred classification.
+- If classification is uncertain, save to the configured inbox path and add `classification_status: "needs-review"` plus `classification_confidence: "low"` in frontmatter.
+- When a category is selected, add `category`, `series`, and `classification_confidence` to frontmatter.
+
 ## Writing
 
 - Read an existing note before editing it.

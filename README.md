@@ -63,6 +63,7 @@ export OBSIDIAN_VERIFY_TLS=1
 scripts/obsidian-mcp.sh         MCP server launcher
 scripts/obsidian_mcp_server.py  MCP stdio server backed by Local REST API
 skills/obsidian-vault/SKILL.md  Codex behavior guide for vault access
+skills/obsidian-vault/classification.example.md  Default classification guide
 ```
 
 ## Configuration
@@ -90,6 +91,25 @@ The plugin exposes these tools to Codex:
 - `obsidian_search_simple`
 - `obsidian_dataview_query`
 - `obsidian_jsonlogic_query`
+
+## Custom Classification
+
+The skill supports user-editable classification rules for deciding where new knowledge notes should be saved.
+
+The plugin ships with a default guide:
+
+```text
+skills/obsidian-vault/classification.example.md
+```
+
+To customize it for your own vault, copy that file to one of these locations and edit the categories, paths, and frontmatter rules:
+
+```text
+<your-vault>/.codex/obsidian-classification.md
+~/.codex/obsidian-classification.md
+```
+
+Codex should prefer your custom guide over the plugin default. This lets different users keep different vault taxonomies without forking the plugin.
 
 ## Usage Examples
 
