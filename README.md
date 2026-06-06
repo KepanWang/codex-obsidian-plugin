@@ -2,7 +2,7 @@
 
 Connect Codex to your local Obsidian vault through the [Obsidian Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api) plugin.
 
-This plugin is intentionally small: Obsidian owns the vault and REST API, the bundled MCP server exposes a focused tool layer to Codex, and the included Codex skill teaches Codex safer note-taking behavior.
+This plugin is intentionally small: Obsidian owns the vault and REST API, the bundled MCP server exposes a focused tool layer to Codex, and the included Codex skills teach Codex safer note-taking and knowledge-capture behavior.
 
 ## What It Does
 
@@ -10,6 +10,7 @@ This plugin is intentionally small: Obsidian owns the vault and REST API, the bu
 - Creates new Markdown notes.
 - Updates existing notes with targeted edits.
 - Uses your existing Obsidian Local REST API and Dataview setup.
+- Turns authorized local video/audio captures into Obsidian knowledge notes with curated artifacts.
 - Keeps the Obsidian API key out of the repository.
 
 ## Requirements
@@ -21,6 +22,13 @@ This plugin is intentionally small: Obsidian owns the vault and REST API, the bu
 - An Obsidian Local REST API key.
 
 Dataview is optional for this plugin, but it is useful when your vault already contains Dataview-powered project lists, indexes, and dashboards.
+
+For video-to-knowledge workflows, install these optional local tools:
+
+- `ffmpeg` for audio extraction, compression, and keyframe extraction.
+- `tesseract` plus OCR language data such as `chi_sim` for Chinese slides.
+- A local Whisper engine such as `mlx-whisper` or `whisper.cpp`.
+- `yt-dlp` only as part of a separate downloader workflow when you have an authorized direct media URL.
 
 ## Installation
 
@@ -64,6 +72,7 @@ scripts/obsidian-mcp.sh         MCP server launcher
 scripts/obsidian_mcp_server.py  MCP stdio server backed by Local REST API
 skills/obsidian-vault/SKILL.md  Codex behavior guide for vault access
 skills/obsidian-vault/classification.example.md  Default classification guide
+skills/obsidian-video-knowledge/SKILL.md  Video-to-knowledge transcription, OCR, curation, and vault archival workflow
 ```
 
 ## Configuration
@@ -127,6 +136,18 @@ Create an Obsidian note in Inbox/Codex summarizing this conversation.
 Find my project note for the Codex Obsidian plugin and append today's implementation notes.
 ```
 
+```text
+Summarize this local MP4, compress it, extract keyframes, OCR the slides, and save the knowledge note into Obsidian.
+```
+
+The video-to-knowledge skill treats raw extracted frames as temporary candidates. It archives only curated keyframes, cleaned OCR/index files, transcripts, and the summary note under the relevant Obsidian folder, for example:
+
+```text
+01 Sources/Development/_video-assets/<date-slug>/
+```
+
+Downloader behavior for different websites, browsers, and logged-in replay environments should live in a separate skill. This plugin's video skill starts once the media is already available locally or has been safely downloaded by an authorized workflow.
+
 ## Safety Model
 
 The included skill tells Codex to:
@@ -137,6 +158,8 @@ The included skill tells Codex to:
 - Prefer append or targeted edits over whole-note replacement.
 - Avoid deleting notes unless explicitly instructed.
 - Ask before bulk edits across many notes.
+- Avoid bypassing login-protected video pages or browser security boundaries.
+- Avoid saving signed replay URLs, cookies, API keys, payment screenshots, or other secrets into notes.
 
 ## Privacy
 

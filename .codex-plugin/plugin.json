@@ -1,7 +1,7 @@
 {
   "name": "codex-obsidian-plugin",
-  "version": "0.2.0",
-  "description": "Connect Codex to a local Obsidian vault through the Obsidian Local REST API.",
+  "version": "0.3.0",
+  "description": "Connect Codex to a local Obsidian vault through the Obsidian Local REST API, with safe workflows for turning notes, articles, and videos into archived knowledge.",
   "author": {
     "name": "Kepan Wang",
     "url": "https://github.com/KepanWang"
@@ -14,21 +14,24 @@
     "obsidian",
     "mcp",
     "local-rest-api",
-    "knowledge-base"
+    "knowledge-base",
+    "video-capture",
+    "transcription"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Obsidian Vault",
-    "shortDescription": "Read and write your local Obsidian knowledge base from Codex.",
-    "longDescription": "Connects Codex to a local Obsidian vault through the Obsidian Local REST API plugin. Use it to search notes, read Markdown files, append captures, run Dataview queries, and make careful targeted edits.",
+    "shortDescription": "Read, write, and capture knowledge into your local Obsidian vault from Codex.",
+    "longDescription": "Connects Codex to a local Obsidian vault through the Obsidian Local REST API plugin. Use it to search notes, read Markdown files, append captures, run Dataview queries, make careful targeted edits, and turn authorized local video captures into knowledge summaries.",
     "developerName": "Kepan Wang",
     "category": "Productivity",
     "capabilities": [
       "MCP",
       "Read",
       "Write",
-      "Search"
+      "Search",
+      "Video Knowledge"
     ],
     "websiteURL": "https://github.com/KepanWang/codex-obsidian-plugin",
     "privacyPolicyURL": "https://github.com/KepanWang/codex-obsidian-plugin#privacy",
@@ -36,7 +39,8 @@
     "defaultPrompt": [
       "Search my Obsidian vault for notes about this topic.",
       "Save this as a new note in my Obsidian inbox.",
-      "Update the relevant project note in Obsidian."
+      "Update the relevant project note in Obsidian.",
+      "Turn this local video into an Obsidian knowledge note with curated artifacts."
     ],
     "brandColor": "#7C3AED"
   }
